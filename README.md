@@ -5,7 +5,7 @@
 <h2>Índice:</h2>
 
 * [Etapas de Instalação](#etapas-de-instalacao)
-* [Pré-requisito](#pre-requisito)
+* [Pré-requisito](#pre-requisitos)
 * [Sobre o Projeto](#sobre-o-projeto)
 * [Constrído com](#construido-com)
 
