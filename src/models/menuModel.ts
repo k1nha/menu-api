@@ -7,7 +7,7 @@ interface IProduct extends RowDataPacket{
 
 export const getAll = async () => {
   const [products] = await connection.execute('SELECT * FROM products');
-  return products
+  return products;
 };
 
 export const createProduct = async (product) => {
@@ -21,7 +21,7 @@ export const createProduct = async (product) => {
 export const getProduct = async (id) => {
   const [getProduct] = await connection.execute('SELECT * FROM products WHERE id = ?', [id]);
 
-  return getProduct
+  return getProduct;
 };
 
 export const deleteProduct = async (id) => {
