@@ -4,7 +4,8 @@
   "description": "crud feito com typescript e mysql",
   "main": "index.js",
   "scripts": {
-    "server": "tsx watch src/server.ts"
+    "server": "tsx watch src/index.ts",
+    "test" : "jest"
   },
   "keywords": [],
   "author": "",
