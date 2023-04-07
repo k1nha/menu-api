@@ -1,5 +1,5 @@
 interface ProductType {
-  id: string;
+  // id: string;
   name: string;
   category: number;
   type: number;
@@ -7,14 +7,14 @@ interface ProductType {
 }
 
 export class Product {
-  public readonly id: string;
+  // public readonly id: string;
   public readonly name: string;
   public readonly category: number;
   public readonly type: number;
   public readonly value: number;
 
-  constructor({ id, name, category, type, value }: ProductType) {
-    this.id = id;
+  constructor({ name, category, type, value }: ProductType) {
+    // this.id = id;
     this.name = name;
     this.category = category;
     this.type = type;
