@@ -13,10 +13,10 @@ datasource db {
 model Product {
   id       String   @id @unique @default(uuid())
   name     String
+  value    Int
   category Category @relation(fields: [categoryId], references: [id])
   type     Type     @relation(fields: [typeId], references: [id])
 
-  value      Int
   categoryId Int
   typeId     Int
 }
