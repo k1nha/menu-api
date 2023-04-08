@@ -15,17 +15,4 @@ routes.delete('/menu/:id', menu.deleteProduct);
 
 routes.put('/menu/:id', validate, menu.updateProduct);
 
-export default routes;
-
-export class ProductRoutes {
-  public router: Router;
-
-  constructor() {
-    this.router = Router();
-    this.registerRoutes();
-  }
-
-  private registerRoutes(): void {
-    this.router.get('/');
-  }
-}
+export { routes };
