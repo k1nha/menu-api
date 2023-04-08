@@ -1,18 +1,17 @@
 import { Router } from 'express';
-import { MenuController } from '../controllers/menuController';
-import { validate } from '../middlewares/productMiddleware';
+import { ProductController } from 'src/controllers/productController';
 
 const routes = Router();
-const menu = new MenuController();
+const product = new ProductController();
 
-routes.get('/menu', menu.getMenu);
+routes.get('/product', product.getAllProducts);
 
-routes.post('/menu/', validate, menu.createNewProduct);
+routes.post('/product/', product.create);
 
-routes.get('/menu/:id', menu.getProduct);
+routes.get('/product/category/:categoryId', product.getProductByCategory);
+routes.get('/product/:name', product.getProductByName);
+routes.get('/product/type/:typeId', product.getProductByType);
 
-routes.delete('/menu/:id', menu.deleteProduct);
-
-routes.put('/menu/:id', validate, menu.updateProduct);
+// TODO: Delete and Put route for prduct
 
 export { routes };
