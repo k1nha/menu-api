@@ -19,8 +19,8 @@ describe('Prisma Product Repository', () => {
 
     await sut.save({
       name: 'any name',
-      category: 2,
-      type: 1,
+      categoryId: 2,
+      typeId: 1,
       value: 1,
     });
 
