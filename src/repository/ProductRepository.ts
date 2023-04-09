@@ -6,4 +6,5 @@ export interface ProductRepository {
   findByName(name: string): Promise<Product[] | undefined>;
   findByCategory(category: number): Promise<Product[] | undefined>;
   findByType(type: number): Promise<Product[] | undefined>;
+  deleteUnique(id: string): Promise<void>;
 }

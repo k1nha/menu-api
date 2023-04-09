@@ -6,6 +6,7 @@ export class PrismaProductRepository implements ProductRepository {
   // eslint-disable-next-line prettier/prettier
   constructor(private readonly prisma: PrismaClient) { }
 
+  // TODO: Save id with cuuid
   public async save(product: Product): Promise<void> {
     await this.prisma.product.create({
       data: {
@@ -60,5 +61,13 @@ export class PrismaProductRepository implements ProductRepository {
     if (!product) return undefined;
 
     return product;
+  }
+
+  public async deleteUnique(id: string): Promise<void> {
+    await this.prisma.product.delete({
+      where: {
+        id,
+      },
+    });
   }
 }
