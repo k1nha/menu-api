@@ -16,7 +16,7 @@ export class PrismaCategoryRepository implements CategoryRepository {
   }
 
   public async getAll(): Promise<Category[]> {
-    const categories = await this.prisma.category.findMany({});
+    const categories = await this.prisma.category.findMany();
     return categories;
   }
 

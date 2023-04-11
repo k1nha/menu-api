@@ -10,13 +10,13 @@ export class ProductController {
   async create(req: Request, res: Response) {
     const body = req.body;
 
-    const rep = makeRepository().save(body);
+    const rep = await makeRepository().save(body);
 
     return res.status(201).send(rep);
   }
 
   async getAllProducts(req: Request, res: Response) {
-    const rep = makeRepository().getAll;
+    const rep = await makeRepository().getAll();
 
     return res.status(200).json({ data: rep });
   }
@@ -24,14 +24,14 @@ export class ProductController {
   async getProductByName(req: Request, res: Response) {
     const { name } = req.params;
 
-    const rep = makeRepository().findByName(name);
+    const rep = await makeRepository().findByName(name);
 
     return res.status(200).json({ data: rep });
   }
 
   async getProductByType(req: Request, res: Response) {
     const typeId = +req.params;
-    const rep = makeRepository().findByType(typeId);
+    const rep = await makeRepository().findByType(typeId);
 
     return res.status(200).json({ data: rep });
   }

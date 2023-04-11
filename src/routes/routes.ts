@@ -1,8 +1,12 @@
 import { Router } from 'express';
+import { CategoryController } from 'src/controllers/categoryController';
 import { ProductController } from 'src/controllers/productController';
+import { TypeController } from 'src/controllers/typeController';
 
 const routes = Router();
 const product = new ProductController();
+const category = new CategoryController();
+const type = new TypeController();
 
 // PRODUCTS
 // TODO: Delete and Put route for prduct
@@ -13,13 +17,13 @@ routes.get('/product/:name', product.getProductByName);
 routes.get('/product/type/:typeId', product.getProductByType);
 
 // CATEGORIES
-routes.get('/product/category');
-routes.post('/products/category');
-routes.delete('/products/category/:categoryId');
+routes.get('/category', category.getAll);
+routes.post('/category', category.create);
+routes.delete('/category/:categoryId', category.delete);
 
 // TYPES
-routes.get('/product/type');
-routes.post('/products/type');
-routes.delete('/products/type/:typeId');
+routes.get('/type', type.getAll);
+routes.post('/type', type.create);
+routes.delete('/type/:typeId', type.delete);
 
 export { routes };

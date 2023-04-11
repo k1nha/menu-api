@@ -10,22 +10,22 @@ export class TypeController {
   async create(req: Request, res: Response) {
     const body = req.body;
 
-    const rep = makerRepository().save(body);
+    const rep = await makerRepository().save(body);
 
     return res.status(201).send(rep);
   }
 
   async getAll(req: Request, res: Response) {
-    const rep = makerRepository().getAll;
+    const rep = await makerRepository().getAll();
 
-    return res.status(200).json({ data: rep })
+    return res.status(200).json({ data: rep });
   }
 
   async delete(req: Request, res: Response) {
-    const typeId = +req.params
+    const typeId = +req.params;
 
-    const rep = makerRepository().deleteUnique(typeId)
+    const rep = await makerRepository().deleteUnique(typeId);
 
-    return res.status(204).json({data: rep})
+    return res.status(204).json({ data: rep });
   }
 }
