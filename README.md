@@ -1,6 +1,6 @@
-<h1 align="center" id="title">Api</h1>
+<h1 align="center" id="title">Menu API</h1>
 
-<p align="center" id="description">Uma api criado com TypeScript e MySQL.</p>
+<p align="center" id="description">Uma api criada com TypeScript, Express, Prisma e MySQL.</p>
 
 <h2>Índice:</h2>
 
