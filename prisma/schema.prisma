@@ -10,28 +10,62 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Restaurant {
+  id              String  @id @default(uuid())
+  name            String
+  address         String
+  latitude        Decimal
+  longitude       Decimal
+  deliveryOptions String //enum but just not work for sqlite
+  paymentType     String
+  phoneNumber     String  @map("phone_number")
+  Order           Order[] @ignore
+
+  @@map("restaurants")
+}
+
 model Product {
-  id       String   @id @unique @default(uuid())
-  name     String
-  value    Int
-  category Category @relation(fields: [categoryId], references: [id])
-  type     Type     @relation(fields: [typeId], references: [id])
+  id           String         @id @default(uuid())
+  name         String
+  description  String
+  value        Int
+  categoryName String         @map("category_name")
+  productImage String         @map("product_image")
+  OrderProduct OrderProduct[] @ignore
 
-  categoryId Int
-  typeId     Int
+  @@map("products")
 }
 
-model Category {
-  id            Int       @id @default(autoincrement())
-  name_category String
-  id_type       Type      @relation(fields: [typeId], references: [id])
-  Product       Product[]
-  typeId        Int
+model Consumer {
+  id        String  @id @default(uuid())
+  name      String
+  longitude Decimal
+  latitude  Decimal
+  Order     Order[] @ignore
+
+  @@map("consumers")
 }
 
-model Type {
-  id        Int        @id @default(autoincrement())
-  name_type String
-  Product   Product[]
-  Category  Category[]
+model Order {
+  id           String         @id @default(uuid()) @map("order_id")
+  restaurantId Restaurant     @relation(fields: [restaurantId], references: [id])
+  consumerId   Consumer       @relation(fields: [consumerId], references: [id])
+  restaurantId String
+  consumerId   String
+  OrderProduct OrderProduct[] @ignore
+
+  @@ignore
+}
+
+model User {
+  id String @id @default(uuid())
+}
+
+model OrderProduct {
+  productId Product @relation(fields: [productId], references: [id])
+  orderId   Order   @relation(fields: [orderId], references: [id])
+  productId String
+  orderId   String
+
+  @@ignore
 }
