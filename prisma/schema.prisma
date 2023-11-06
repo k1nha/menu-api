@@ -7,7 +7,7 @@ generator client {
 
 datasource db {
   provider = "sqlite"
-  url      = env("DATABASE_URL")
+  url      = "file:./dev.db"
 }
 
 model Restaurant {
@@ -19,7 +19,9 @@ model Restaurant {
   deliveryOptions String //enum but just not work for sqlite
   paymentType     String
   phoneNumber     String  @map("phone_number")
-  Order           Order[] @ignore
+  Order           Order[]
+  openingTime     String
+  closingTime     String
 
   @@map("restaurants")
 }
@@ -31,7 +33,7 @@ model Product {
   value        Int
   categoryName String         @map("category_name")
   productImage String         @map("product_image")
-  OrderProduct OrderProduct[] @ignore
+  OrderProduct OrderProduct[]
 
   @@map("products")
 }
@@ -41,20 +43,21 @@ model Consumer {
   name      String
   longitude Decimal
   latitude  Decimal
-  Order     Order[] @ignore
+  Order     Order[]
 
   @@map("consumers")
 }
 
 model Order {
-  id           String         @id @default(uuid()) @map("order_id")
-  restaurantId Restaurant     @relation(fields: [restaurantId], references: [id])
-  consumerId   Consumer       @relation(fields: [consumerId], references: [id])
-  restaurantId String
-  consumerId   String
-  OrderProduct OrderProduct[] @ignore
+  id           String     @id @default(uuid()) @map("order_id")
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+  costumer     Consumer   @relation(fields: [consumerId], references: [id])
+  restaurantId String     @map("restaurant_id")
+  consumerId   String     @map("consumer_id")
+  createdAt    DateTime   @default(now())
+  finishedAt   DateTime?  @map("finished_at")
 
-  @@ignore
+  OrderProduct OrderProduct[]
 }
 
 model User {
@@ -62,10 +65,10 @@ model User {
 }
 
 model OrderProduct {
-  productId Product @relation(fields: [productId], references: [id])
-  orderId   Order   @relation(fields: [orderId], references: [id])
+  product   Product @relation(fields: [productId], references: [id])
+  order     Order   @relation(fields: [orderId], references: [id])
   productId String
   orderId   String
 
-  @@ignore
+  @@id([orderId, productId])
 }
