@@ -18,5 +18,7 @@ export class CreateOrder {
     customerId,
     products,
     restaurantId,
-  }: Input): Promise<Output> {}
+  }: Input): Promise<Output> {
+    return {}
+  }
 }

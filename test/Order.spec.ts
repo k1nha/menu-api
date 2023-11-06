@@ -1,5 +1,5 @@
 import { randomUUID } from 'crypto'
-import { describe, expect,  } from 'vitest'
+import { describe, expect } from 'vitest'
 
 describe('Deve criar um pedido', async () => {
   const sut = new CreateOrder()
