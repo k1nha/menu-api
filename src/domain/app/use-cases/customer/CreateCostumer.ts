@@ -1,3 +1,4 @@
+import { UseCase } from '@/core/base/use-cases'
 import { Customer } from '../../entities'
 import { CustomerRepository } from '../../repositories'
 
@@ -6,7 +7,7 @@ type Input = {
   email: string
 }
 
-export class CreateCustomer {
+export class CreateCustomer implements UseCase<Input, void> {
   constructor(private readonly customerRepository: CustomerRepository) {}
 
   async execute({ email, name }: Input): Promise<void> {

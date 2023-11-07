@@ -3,6 +3,7 @@ import { UniqueEntityId } from './value-objects/unique-entity-id'
 import { Optional } from '@/core/types/optional'
 
 type AddressProps = {
+  customerId: string
   street: string
   city: string
   zipCode: string

@@ -5,7 +5,7 @@ import { Optional } from '@/core/types/optional'
 interface CustomerProps {
   name: string
   email: string
-  addresId?: UniqueEntityId
+  pinAddressId?: UniqueEntityId
   createdAt: Date
   updatedAt?: Date
 }
@@ -19,12 +19,13 @@ export class Customer extends Entity<CustomerProps> {
     return this.props.email
   }
 
-  set addressId(addressId: string) {
-    this.props.addresId = new UniqueEntityId(addressId)
+  set pinAddressId(pinAddressId: string) {
+    this.props.pinAddressId = new UniqueEntityId(pinAddressId)
+    this.touch()
   }
 
-  get addressId() {
-    return this.props.addresId?.toString() ?? ''
+  get pinAddressId() {
+    return this.props.pinAddressId?.toString() ?? ''
   }
 
   private touch() {
