@@ -8,11 +8,11 @@ export class InMemoryCustomerRepository implements CustomerRepository {
     this.items.push(customer)
   }
 
-  async asignAddress(customerId: string, address: string) {
+  async asignAddress(customerId: string, addressId: string) {
     const index = this.items.findIndex(
       (item) => item.id.toString() === customerId,
     )
 
-    this.items[index].addressId = address
+    this.items[index].pinAddressId = addressId
   }
 }
