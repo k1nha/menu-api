@@ -19,13 +19,13 @@ export class Customer extends Entity<CustomerProps> {
     return this.props.email
   }
 
-  set pinAddressId(pinAddressId: string) {
-    this.props.pinAddressId = new UniqueEntityId(pinAddressId)
+  set pinAddressId(pinAddressId: UniqueEntityId | undefined) {
+    this.props.pinAddressId = pinAddressId
     this.touch()
   }
 
   get pinAddressId() {
-    return this.props.pinAddressId?.toString() ?? ''
+    return this.props.pinAddressId
   }
 
   private touch() {

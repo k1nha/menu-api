@@ -2,8 +2,8 @@ import { Entity } from '@/core/base/entity'
 import { UniqueEntityId } from './value-objects/unique-entity-id'
 import { Optional } from '@/core/types/optional'
 
-type AddressProps = {
-  customerId: string
+export type AddressProps = {
+  customerId: UniqueEntityId
   street: string
   city: string
   zipCode: string
@@ -15,6 +15,10 @@ type AddressProps = {
 }
 
 export class Address extends Entity<AddressProps> {
+  get customerId() {
+    return this.props.customerId
+  }
+
   static create(
     props: Optional<AddressProps, 'createdAt'>,
     id?: UniqueEntityId,

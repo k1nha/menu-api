@@ -13,12 +13,25 @@ export class AsignPinAddressToCustomer implements UseCase<Input, void> {
   ) {}
 
   async execute({ addressId, customerId }: Input) {
-    const addressExist = await this.addressRepository.findById(addressId)
+    const customer = await this.customerRepository.findById(customerId)
 
-    if (!addressExist) {
+    if (!customer) {
+      throw new Error('Customer not found')
+    }
+
+    const address = await this.addressRepository.findById(addressId)
+
+    if (!address) {
       throw new Error('Address not found')
     }
+
+    if (address.customerId.toString() !== customerId) {
+      throw new Error('Customer Error')
+    }
     // Verify this id is valid
-    await this.customerRepository.asignAddress(addressId, customerId)
+
+    customer.pinAddressId = address.id
+
+    await this.customerRepository.save(customer)
   }
 }
