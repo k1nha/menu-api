@@ -1,22 +1,22 @@
-import { Customer } from '@/domain/app/entities'
 import { CreateCustomer } from '@/domain/app/use-cases'
+import { makeCustomer } from 'test/factories'
 import { InMemoryCustomerRepository } from 'test/repositories/InMemoryCustomerRepository'
-import { beforeEach, describe, expect, it } from 'vitest'
+import { describe, expect, it } from 'vitest'
 
-let inMemoryCustomerRepository: InMemoryCustomerRepository
-let sut: CreateCustomer
+const makeSut = () => {
+  const inMemoryCustomerRepository = new InMemoryCustomerRepository()
+  const sut = new CreateCustomer(inMemoryCustomerRepository)
+
+  return {
+    sut,
+    inMemoryCustomerRepository,
+  }
+}
 
 describe('Create Customer Use Case', () => {
-  beforeEach(() => {
-    inMemoryCustomerRepository = new InMemoryCustomerRepository()
-    sut = new CreateCustomer(inMemoryCustomerRepository)
-  })
-
   it('should create a customer', async () => {
-    const customer = Customer.create({
-      email: 'test@example.com',
-      name: 'test',
-    })
+    const { sut, inMemoryCustomerRepository } = makeSut()
+    const customer = makeCustomer()
 
     await sut.execute(customer)
 

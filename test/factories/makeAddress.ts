@@ -1,7 +1,7 @@
 import { Address, AddressProps } from '@/domain/app/entities'
 import { UniqueEntityId } from '@/domain/app/entities/value-objects/unique-entity-id'
 
-export function makeAddress(override: Partial<AddressProps>) {
+export function makeAddress(override?: Partial<AddressProps>) {
   const address = Address.create({
     customerId: new UniqueEntityId(),
     city: 'Example city',

@@ -2,7 +2,7 @@ import { Entity } from '@/core/base/entity'
 import { UniqueEntityId } from './value-objects/unique-entity-id'
 import { Optional } from '@/core/types/optional'
 
-interface CustomerProps {
+export interface CustomerProps {
   name: string
   email: string
   pinAddressId?: UniqueEntityId

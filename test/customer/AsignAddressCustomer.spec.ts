@@ -1,43 +1,39 @@
-import { Address, Customer } from '@/domain/app/entities'
 import { UniqueEntityId } from '@/domain/app/entities/value-objects/unique-entity-id'
 import { AsignPinAddressToCustomer } from '@/domain/app/use-cases'
+import { makeAddress, makeCustomer } from 'test/factories'
 import { InMemoryAddressRepository } from 'test/repositories/InMemoryAddressRepository'
 import { InMemoryCustomerRepository } from 'test/repositories/InMemoryCustomerRepository'
-import { beforeEach, describe, expect, it } from 'vitest'
+import { describe, expect, it } from 'vitest'
 
-let inMemoryCustomerRepository: InMemoryCustomerRepository
-let inMemoryAddressRepository: InMemoryAddressRepository
-let sut: AsignPinAddressToCustomer
+const makeSut = () => {
+  const inMemoryCustomerRepository = new InMemoryCustomerRepository()
+  const inMemoryAddressRepository = new InMemoryAddressRepository()
+  const sut = new AsignPinAddressToCustomer(
+    inMemoryCustomerRepository,
+    inMemoryAddressRepository,
+  )
+
+  return {
+    sut,
+    inMemoryAddressRepository,
+    inMemoryCustomerRepository,
+  }
+}
 
 describe('Asign Address to Customer Use Case', () => {
-  beforeEach(() => {
-    inMemoryCustomerRepository = new InMemoryCustomerRepository()
-    inMemoryAddressRepository = new InMemoryAddressRepository()
-    sut = new AsignPinAddressToCustomer(
-      inMemoryCustomerRepository,
-      inMemoryAddressRepository,
-    )
-  })
+  it('should asign pinAddress to customer', async () => {
+    const { inMemoryAddressRepository, sut, inMemoryCustomerRepository } =
+      makeSut()
 
-  it('should asign one address to customer', async () => {
-    const customer = Customer.create({
-      email: 'test@example.com',
-      name: 'test',
-    })
+    const customer = makeCustomer()
 
-    await inMemoryCustomerRepository.items.push(customer)
+    await inMemoryCustomerRepository.create(customer)
 
-    const address = Address.create({
+    const address = makeAddress({
       customerId: customer.id,
-      city: 'San Francisco',
-      latitude: 0,
-      longitude: 0,
-      state: 'San Francisco',
-      street: 'San Francisco',
-      zipCode: '123',
     })
 
-    await inMemoryAddressRepository.items.push(address)
+    inMemoryAddressRepository.items.push(address)
 
     await sut.execute({
       customerId: customer.id.toString(),
@@ -49,22 +45,49 @@ describe('Asign Address to Customer Use Case', () => {
   })
 
   it('should return error if customer is not exists', async () => {
-    const customerId = new UniqueEntityId()
+    const { sut } = makeSut()
 
-    const address = Address.create({
-      customerId,
-      city: 'San Francisco',
-      latitude: 0,
-      longitude: 0,
-      state: 'San Francisco',
-      street: 'San Francisco',
-      zipCode: '123',
-    })
+    const address = makeAddress()
 
     expect(() =>
       sut.execute({
         addressId: address.id.toString(),
-        customerId: customerId.toString(),
+        customerId: address.customerId.toString(),
+      }),
+    ).rejects.toBeInstanceOf(Error)
+  })
+
+  it('should be return error if address is not found', async () => {
+    const { inMemoryCustomerRepository, sut } = makeSut()
+
+    const customer = makeCustomer()
+
+    await inMemoryCustomerRepository.create(customer)
+
+    const fakeAddressId = new UniqueEntityId()
+
+    expect(() =>
+      sut.execute({
+        addressId: fakeAddressId.toString(),
+        customerId: customer.id.toString(),
+      }),
+    ).rejects.toBeInstanceOf(Error)
+  })
+
+  it('should be return error if address is not matches with customer', async () => {
+    const { inMemoryCustomerRepository, inMemoryAddressRepository, sut } =
+      makeSut()
+
+    const customer = makeCustomer()
+    const address = makeAddress()
+
+    await inMemoryCustomerRepository.create(customer)
+    inMemoryAddressRepository.items.push(address)
+
+    expect(() =>
+      sut.execute({
+        addressId: address.id.toString(),
+        customerId: customer.id.toString(),
       }),
     ).rejects.toBeInstanceOf(Error)
   })
