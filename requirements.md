@@ -56,12 +56,12 @@ class Address {
 
 ## Requisitos Funcionais
 
-- [ ] Deve listar todos os endereços de um consumidor
-- [ ] Deve ser possível adicionar endereços
+- [x] Deve listar todos os endereços de um consumidor
+- [x] Deve ser possível adicionar endereços
 
 ## Requisitos Obrigatórios
 
-- [ ] Ter um ID de um consumidor
+- [x] Ter um ID de um consumidor
 
 ---
 
@@ -74,6 +74,7 @@ class Product {
   value: string
   categoryName: string
   produdctImage: string
+  restaurantId: UniqueEntityId
 }
 ```
 
