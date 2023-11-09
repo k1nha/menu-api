@@ -21,8 +21,6 @@ describe('Create Customer Use Case', () => {
     await sut.execute(customer)
 
     expect(inMemoryCustomerRepository.items.length).toBe(1)
-    expect(inMemoryCustomerRepository.items[0].email).toEqual(
-      'test@example.com',
-    )
+    expect(inMemoryCustomerRepository.items[0].email).toEqual(customer.email)
   })
 })

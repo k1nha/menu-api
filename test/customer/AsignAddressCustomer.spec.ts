@@ -33,7 +33,7 @@ describe('Asign Address to Customer Use Case', () => {
       customerId: customer.id,
     })
 
-    inMemoryAddressRepository.items.push(address)
+    inMemoryAddressRepository.create(address)
 
     await sut.execute({
       customerId: customer.id.toString(),
