@@ -19,6 +19,30 @@ export class Address extends Entity<AddressProps> {
     return this.props.customerId
   }
 
+  get street() {
+    return this.props.street
+  }
+
+  get city() {
+    return this.props.city
+  }
+
+  get zipCode() {
+    return this.props.zipCode
+  }
+
+  get state() {
+    return this.props.state
+  }
+
+  get latitude() {
+    return this.props.latitude
+  }
+
+  get longitude() {
+    return this.props.longitude
+  }
+
   static create(
     props: Optional<AddressProps, 'createdAt'>,
     id?: UniqueEntityId,

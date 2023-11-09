@@ -7,7 +7,7 @@
 
 ## Requisitos Obrigatórios
 
-- [ ] Pedido só pode ser realizado em um endereço ao máximo de 2km de distância
+- [ ] Pedido só pode ser realizado em um endereço ao máximo de 5km de distância
 - [ ] Pedido só pode ser realizado por um consumidor
 
 ---
@@ -18,7 +18,7 @@
 class Customer {
   name: string
   email: string
-  addresId?: UniqueEntityId
+  pinAddressId?: UniqueEntityId
   createdAt: Date
   updatedAt?: Date
 }
@@ -26,24 +26,23 @@ class Customer {
 
 ## Requisitos funcionais - Consumidor
 
-- [ ] Deve ser possível criar uma conta
-- [ ] Deve ser possível adicionar endereços
-- [ ] Deve ser possível mudar endereço principal
-- [ ] Deve ser possível visualizar os endereços
+- [x] Deve ser possível criar uma conta
+- [x] Deve ser possível mudar endereço principal
 - [ ] Deve ser possível visualizar pedidos feitos em cada restaurante
 
 ## Requisitos obrigatórios - Consumidor
 
-- [ ] Ter um endereço principal
+- [x] Ter um endereço principal
 - [ ] Ter um contato
-- [ ] Pode ter multiplos endereços
+- [x] Pode ter multiplos endereços
 
 ---
-
+  
 ## Endereço
 
 ```ts
 class Address {
+  customerId: string
   street: string
   city: string
   zipCode: string
@@ -54,6 +53,56 @@ class Address {
   updatedAt?: Date
 }
 ```
+
+## Requisitos Funcionais
+
+- [ ] Deve listar todos os endereços de um consumidor
+- [ ] Deve ser possível adicionar endereços
+
+## Requisitos Obrigatórios
+
+- [ ] Ter um ID de um consumidor
+
+---
+
+## Product
+
+```ts
+class Product {
+  name: string
+  description: string
+  value: string
+  categoryName: string
+  produdctImage: string
+}
+```
+
+---
+
+## Retaurante
+
+```ts
+class Restaurant {
+  name: string
+  address: string
+  latitude: number
+  longitude: number
+  paymentType: Array<string>
+  phoneNumber: string
+  openingTime: string
+  closingTime: string
+}
+```
+
+## Requisitos Funcionais
+
+- [ ] Deve ser possível criar um restaurante
+- [ ] Exibir os restaurantes disponíveis com base em uma localidade seguindo os horários de abertura
+
+## Requisitos Obrigatórios
+
+- [ ] Precisa ter os dias com horários de abertura e fechamento
+- [ ] Ter no minímo de um metodo de pagamento
 
 ---
 
@@ -70,7 +119,10 @@ class Order {
 }
 ```
 
-## Requisitos funcionais
+## Requisitos Funcionais
 
 - [ ] s
-- [ ]
+
+## Requisitos Obrigatórios
+
+- [ ] s
